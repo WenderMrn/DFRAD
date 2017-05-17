@@ -1,6 +1,6 @@
 # DFRAD
 
-
+```
 (0...100).each{|value|
   print (value % 10 != 9)? "%02d " % value : "%02d\n" % value
 }
@@ -18,3 +18,4 @@
 numbers = (0...100).select(&:odd?).reverse_each{|value|
     print (value % 10 == 1)? "%02d\n" % value : "%02d " % value
 }
+```
