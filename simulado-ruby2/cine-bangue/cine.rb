@@ -1,5 +1,5 @@
 require 'json'
-require 'net/http'
+#require 'net/http'
 
 class Cine
 
@@ -15,7 +15,8 @@ class Cine
         movie_key = id
         @temps[@temps.keys[0]]["programacao"].each{|data_prog,times|
           if times.has_value?(movie_key)
-            result.push({date: data_prog,time: times.select{|key,value| value == movie_key }.keys.first})
+            #result.push({date: data_prog,time: times.select{|key,value| value == movie_key }.keys.first})
+            result.push({date: data_prog,time: times.invert.fetch_values(movie_key).first})
           end
         }
         break
@@ -26,13 +27,13 @@ class Cine
 
   def list_movies(data)
     result  = []
-    puts "LIST_MOVIES: #{@temps.keys[0]}"
     @temps[@temps.keys[0]]["programacao"].each{|data_prog,times|
       if data_prog == data
         movie_keys = times.values
           @movies.reverse_each{|id,movie|
             if movie_keys.include?(id)
-                result.push({movie: movie["nome"],time: times.select{|key,value| value == id }.keys.first})
+              #result.push({movie: movie["nome"],time: times.select{|key,value| value == id }.keys.first})
+              result.push({movie: movie["nome"],time: times.invert.fetch_values(id).first})
             end
           }
         break
